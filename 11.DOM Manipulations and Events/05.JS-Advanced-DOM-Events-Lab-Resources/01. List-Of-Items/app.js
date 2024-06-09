@@ -1,13 +1,13 @@
 function addItem() {
-	const inputFieldElement = document.getElementById(`newItemText`);
-	const ulElement = document.getElementById(`items`);
+	const newListItem = document.getElementById(`items`);
+	const addListItem = document.getElementById(`newItemText`);
 
-	const liElement = document.createElement(`li`);
-	liElement.textContent = inputFieldElement.value;
+	const setLiElement = document.createElement(`li`);
 
-	ulElement.append(liElement);
+	setLiElement.textContent = addListItem.value;
 
-	inputFieldElement.value = ``;
+	newListItem.append(setLiElement);
 
-	inputFieldElement.focus();
+	addListItem.value = ``;
+	addListItem.focus;
 }
