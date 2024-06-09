@@ -6,10 +6,8 @@ function solve() {
 	let cart = {};
 
 	checkOutBtn.addEventListener(`click`, (event) => {
-		const totalPrice = Object.values(cart).reduce(
-			(sum, price) => sum + price,
-			0
-		);
+		let totalPrice = Object.values(cart).reduce((sum, price) => sum + price, 0);
+
 		const list = Object.keys(cart).join(`, `);
 
 		textArea.value += `You bought ${list} for ${totalPrice.toFixed(2)}.`;
