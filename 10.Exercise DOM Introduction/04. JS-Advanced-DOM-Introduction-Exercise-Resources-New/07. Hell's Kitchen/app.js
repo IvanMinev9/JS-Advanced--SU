@@ -1,4 +1,5 @@
 function solve() {
+<<<<<<< Updated upstream
 	document.querySelector("#btnSend").addEventListener("click", onClick);
 
 	const textFieldRef = document.querySelector(`textarea`);
@@ -71,3 +72,9 @@ function solve() {
 "TheLake - Bob 1300, Joe 780, Jane 660"]
 
 */
+=======
+  document.querySelector("#btnSend").addEventListener("click", onClick);
+
+  function onClick() {}
+}
+>>>>>>> Stashed changes
