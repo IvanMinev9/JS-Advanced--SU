@@ -1,119 +1,118 @@
 window.addEventListener("load", solve);
 
 function solve() {
-	const gemElementName = document.getElementById(`gem-name`);
-	const colorElementInput = document.getElementById(`color`);
-	const caratsElementInput = document.getElementById(`carats`);
-	const priceElementInput = document.getElementById(`price`);
-	const typeElement = document.getElementById(`type`);
-	const addBtnElement = document.getElementById(`add-btn`);
-	const previewElement = document.getElementById(`preview-list`);
-	const collectionList = document.getElementById(`collection`);
+  const inputElementGemName = document.getElementById(`gem-name`);
+  const inputElementColor = document.getElementById(`color`);
+  const inputElementCarats = document.getElementById(`carats`);
+  const inputElementPrice = document.getElementById(`price`);
+  const inputElementType = document.getElementById(`type`);
+  const addButton = document.getElementById(`add-btn`);
+  const previewList = document.getElementById(`preview-list`);
+  const collectionItems = document.getElementById(`collection`);
 
-	addBtnElement.addEventListener(`click`, addBtnEventHandler);
+  addButton.addEventListener(`click`, (e) => {
+    const inputElements = [
+      inputElementGemName,
+      inputElementColor,
+      inputElementCarats,
+      inputElementPrice,
+      inputElementType,
+    ];
 
-	function addBtnEventHandler(e) {
-		const inputElements = [
-			gemElementName,
-			colorElementInput,
-			caratsElementInput,
-			priceElementInput,
-			typeElement,
-		];
+    if (inputElements.some((el) => el.value === ``)) {
+      return;
+    }
 
-		if (inputElements.some((element) => element.value === ``)) {
-			return;
-		}
+    const previewElements = createPreviewEl(
+      inputElementGemName.value,
+      inputElementColor.value,
+      inputElementCarats.value,
+      inputElementPrice.value,
+      inputElementType.value
+    );
 
-		const preview = createPreviewElements(
-			gemElementName.value,
-			colorElementInput.value,
-			caratsElementInput.value,
-			priceElementInput.value,
-			typeElement.value
-		);
+    previewList.appendChild(previewElements);
 
-		previewElement.appendChild(preview);
+    inputElements.forEach((e) => (e.value = ``));
 
-		e.currentTarget.setAttribute(`disabled`, `disabled`);
+    e.currentTarget.setAttribute(`disabled`, `disabled`);
+  });
 
-		inputElements.forEach((el) => (el.value = ``));
-	}
+  function createPreviewEl(name, color, carats, price, type) {
+    const nameElement = document.createElement(`h4`);
+    nameElement.textContent = name;
 
-	function createPreviewElements(name, color, carats, price, type) {
-		const craftH4Nama = document.createElement(`h4`);
-		craftH4Nama.textContent = name;
+    const colorElement = document.createElement(`p`);
+    colorElement.textContent = `Color: ${color}`;
 
-		const craftColor = document.createElement(`p`);
-		craftColor.textContent = `Color: ${color}`;
+    const caratsElement = document.createElement(`p`);
+    caratsElement.textContent = `Carats: ${carats}`;
 
-		const craftCarats = document.createElement(`p`);
-		craftCarats.textContent = `Carats: ${carats}`;
+    const priceElement = document.createElement(`p`);
+    priceElement.textContent = `Price: ${price}$`;
 
-		const setPrice = document.createElement(`p`);
-		setPrice.textContent = `Price: ${price}$`;
+    const typeElement = document.createElement(`p`);
+    typeElement.textContent = `Type: ${type}`;
 
-		const craftType = document.createElement(`p`);
-		craftType.textContent = `Type: ${type}`;
+    const articleElement = document.createElement(`article`);
 
-		const articleAreaElements = document.createElement(`article`);
+    articleElement.append(
+      nameElement,
+      colorElement,
+      caratsElement,
+      priceElement,
+      typeElement
+    );
 
-		articleAreaElements.appendChild(craftH4Nama);
-		articleAreaElements.appendChild(craftColor);
-		articleAreaElements.appendChild(craftCarats);
-		articleAreaElements.appendChild(setPrice);
-		articleAreaElements.appendChild(craftType);
+    const saveButton = document.createElement(`button`);
+    saveButton.classList.add(`save-btn`);
+    saveButton.textContent = `Save to Collection`;
 
-		const craftSaveBtn = document.createElement(`button`);
-		craftSaveBtn.classList.add(`save-btn`);
-		craftSaveBtn.textContent = `Save to Collection`;
+    const editButon = document.createElement(`button`);
+    editButon.classList.add(`edit-btn`);
+    editButon.textContent = `Edit Information`;
 
-		const craftEditBtn = document.createElement(`button`);
-		craftEditBtn.classList.add(`edit-btn`);
-		craftEditBtn.textContent = `Edit Information`;
+    const cancelButton = document.createElement(`button`);
+    cancelButton.classList.add(`cancel-btn`);
+    cancelButton.textContent = `Cancel`;
 
-		craftEditBtn.addEventListener(`click`, (e) => {
-			gemElementName.value = name;
-			colorElementInput.value = color;
-			caratsElementInput.value = carats;
-			priceElementInput.value = price;
-			typeElement.value = type;
+    const liElement = document.createElement(`li`);
+    liElement.classList.add(`gem-info`);
 
-			e.currentTarget.parentElement.remove();
+    liElement.append(articleElement, saveButton, editButon, cancelButton);
 
-			addBtnElement.removeAttribute(`disabled`);
-		});
+    editButon.addEventListener(`click`, (e) => {
+      inputElementGemName.value = name;
+      inputElementColor.value = color;
+      inputElementCarats.value = carats;
+      inputElementPrice.value = price;
+      inputElementType.value = type;
 
-		const craftCancelBtn = document.createElement(`button`);
-		craftCancelBtn.classList.add(`cancel-btn`);
-		craftCancelBtn.textContent = `Cancel`;
+      addButton.removeAttribute(`disabled`);
 
-		const craftLiElement = document.createElement(`li`);
-		craftLiElement.classList.add(`gem-info`);
+      e.currentTarget.parentElement.remove();
+    });
 
-		craftLiElement.appendChild(articleAreaElements);
-		craftLiElement.appendChild(craftSaveBtn);
-		craftLiElement.appendChild(craftEditBtn);
-		craftLiElement.appendChild(craftCancelBtn);
+    saveButton.addEventListener(`click`, (e) => {
+      const collectionParagraph = document.createElement(`p`);
+      collectionParagraph.classList.add(`collection-item`);
+      collectionParagraph.textContent = `${name} - Color: ${color}/ Carats: ${carats}/ Price: ${price}/ Type: ${type}`;
 
-		craftSaveBtn.addEventListener(`click`, (e) => {
-			const craftCollectionP = document.createElement(`p`);
-			craftCollectionP.classList.add(`collection-item`);
-			craftCollectionP.textContent = `${name} - Color: ${color}/ Carats: ${carats}/ Price: ${price}/ Type: ${type}`;
+      const collectionItemList = document.createElement(`li`);
+      collectionItemList.appendChild(collectionParagraph);
 
-			collectionList.appendChild(craftCollectionP);
+      collectionItems.appendChild(collectionItemList);
 
-			e.currentTarget.parentElement.remove();
+      e.currentTarget.parentElement.remove();
 
-			addBtnElement.removeAttribute(`disabled`);
-		});
+      addButton.removeAttribute(`disabled`);
+    });
 
-		craftCancelBtn.addEventListener(`click`, (e) => {
-			e.currentTarget.parentElement.remove();
+    cancelButton.addEventListener(`click`, (e) => {
+      e.currentTarget.parentElement.remove();
 
-			addBtnElement.removeAttribute(`disabled`);
-		});
-
-		return craftLiElement;
-	}
+      addButton.removeAttribute(`disabled`);
+    });
+    return liElement;
+  }
 }
