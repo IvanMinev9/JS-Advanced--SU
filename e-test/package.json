@@ -1,0 +1,18 @@
+{
+  "name": "e-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "",
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "IM",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^5.1.1",
+    "mocha": "^10.6.0"
+  }
+}
