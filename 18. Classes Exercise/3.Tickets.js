@@ -8,7 +8,7 @@ function tickets(arrOfData, sortCriteria) {
     }
     static sort(arr, sortCriteria) {
       return arr.sort((a, b) => {
-        return sortCriteria === "price"
+        return sortCriteria === `price`
           ? a[sortCriteria] - b[sortCriteria]
           : a[sortCriteria].localeCompare(b[sortCriteria]);
       });
@@ -32,7 +32,7 @@ let result = tickets(
     "New York City|95.99|sold",
     "Boston|126.20|departed",
   ],
-  "destination"
+  "status"
 );
 
 console.log(result);
