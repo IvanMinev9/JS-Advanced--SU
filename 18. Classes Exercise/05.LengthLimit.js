@@ -1,7 +1,7 @@
 class Stringer {
   constructor(string, length) {
     this.innerString = string;
-    this.innerLength = length;
+    this.innerLength = Number(length);
   }
 
   increase(num) {
@@ -18,7 +18,7 @@ class Stringer {
 
   toString() {
     if (this.innerString.length > this.innerLength) {
-      return this.innerString.slice(0, this.innerLength, `...`);
+      return this.innerString.slice(0, this.innerLength, "...");
     } else {
       return this.innerString;
     }
@@ -26,7 +26,7 @@ class Stringer {
 }
 
 let test = new Stringer("Test", 5);
-// console.log(test.toString()); // Test
+console.log(test.toString()); // Test
 
 test.decrease(3);
 console.log(test.toString()); // Te...
