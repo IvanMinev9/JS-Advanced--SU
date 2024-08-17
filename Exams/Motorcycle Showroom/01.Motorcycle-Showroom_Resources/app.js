@@ -1,119 +1,120 @@
 window.addEventListener("load", solve);
 
 function solve() {
-	const colorInput = document.getElementById("colors");
-	const modelInput = document.getElementById("motorcycles");
-	const dateTimeInput = document.getElementById("datetime");
-	const nameInput = document.getElementById("full-name");
-	const emailInput = document.getElementById("email");
-	const addButton = document.getElementById("test-ride-btn");
-	const previewList = document.getElementById("preview-list");
-	const completeList = document.getElementById("complete-list");
+  const colorInput = document.getElementById("colors");
+  const modelInput = document.getElementById("motorcycles");
+  const dateTimeInput = document.getElementById("datetime");
+  const nameInput = document.getElementById("full-name");
+  const emailInput = document.getElementById("email");
+  const addButton = document.getElementById("test-ride-btn");
+  const previewList = document.getElementById("preview-list");
+  const completeList = document.getElementById("complete-list");
 
-	addButton.addEventListener(`click`, onSubmit);
+  addButton.addEventListener(`click`, onSubmit);
 
-	function onSubmit(e) {
-		const color = colorInput.value;
-		const model = modelInput.value;
-		const datetime = dateTimeInput.value;
-		const name = nameInput.value;
-		const email = emailInput.value;
+  function onSubmit(e) {
+    const color = colorInput.value;
 
-		if (!color || !model || !datetime || !name || !email) {
-			return;
-		}
-		const prevList = createLiElement(color, model, datetime, name, email);
-		previewList.appendChild(prevList);
+    const model = modelInput.value;
+    const datetime = dateTimeInput.value;
+    const name = nameInput.value;
+    const email = emailInput.value;
 
-		e.currentTarget.setAttribute("disabled", "disabled");
+    if (!color || !model || !datetime || !name || !email) {
+      return;
+    }
+    const prevList = createLiElement(color, model, datetime, name, email);
+    previewList.appendChild(prevList);
 
-		clear(colorInput, modelInput, dateTimeInput, nameInput, emailInput);
-	}
+    e.currentTarget.setAttribute("disabled", "disabled");
 
-	function clear(...fields) {
-		fields.forEach((el) => (el.value = ""));
-	}
+    clear(colorInput, modelInput, dateTimeInput, nameInput, emailInput);
+  }
 
-	function createBtnListener(classes, text, handler) {
-		const btn = document.createElement("button");
-		btn.classList.add(classes);
-		btn.textContent = text;
-		btn.addEventListener("click", handler);
-		return btn;
-	}
+  function clear(...fields) {
+    fields.forEach((el) => (el.value = ""));
+  }
 
-	function createLiElement(color, model, datetime, name, email) {
-		const liElement = document.createElement("li");
+  function createBtnListener(classes, text, handler) {
+    const btn = document.createElement("button");
+    btn.classList.add(classes);
+    btn.textContent = text;
+    btn.addEventListener("click", handler);
+    return btn;
+  }
 
-		const article = createArticleElement(color, model, datetime, name, email);
-		liElement.appendChild(article);
+  function createLiElement(color, model, datetime, name, email) {
+    const liElement = document.createElement("li");
 
-		// previewList.appendChild(liElement);
+    const article = createArticleElement(color, model, datetime, name, email);
+    liElement.appendChild(article);
 
-		// const editBtn = document.createElement("button");
-		// editBtn.classList.add("edit-btn");
-		// editBtn.textContent = "Edit";
+    // previewList.appendChild(liElement);
 
-		// const nextBtn = document.createElement("button");
-		// nextBtn.classList.add("next-btn");
-		// nextBtn.textContent = "Next";
+    // const editBtn = document.createElement("button");
+    // editBtn.classList.add("edit-btn");
+    // editBtn.textContent = "Edit";
 
-		const editBtn = createBtnListener("edit-btn", "Edit", onEdit);
-		const nextBtn = createBtnListener("next-btn", "Next", onNext);
+    // const nextBtn = document.createElement("button");
+    // nextBtn.classList.add("next-btn");
+    // nextBtn.textContent = "Next";
 
-		liElement.appendChild(editBtn);
-		liElement.appendChild(nextBtn);
-		return liElement;
-	}
+    const editBtn = createBtnListener("edit-btn", "Edit", onEdit);
+    const nextBtn = createBtnListener("next-btn", "Next", onNext);
 
-	function createArticleElement(color, model, datetime, name, email) {
-		const pColor = document.createElement("p");
-		pColor.textContent = `Color: ${color}`;
+    liElement.appendChild(editBtn);
+    liElement.appendChild(nextBtn);
+    return liElement;
+  }
 
-		const pModel = document.createElement("p");
-		pModel.textContent = `Model: ${model}`;
+  function createArticleElement(color, model, datetime, name, email) {
+    const pColor = document.createElement("p");
+    pColor.textContent = `Color: ${color}`;
 
-		const pName = document.createElement("p");
-		pName.textContent = `For: ${name}`;
+    const pModel = document.createElement("p");
+    pModel.textContent = `Model: ${model}`;
 
-		const pEmail = document.createElement("p");
-		pEmail.textContent = `Contact: ${email}`;
+    const pName = document.createElement("p");
+    pName.textContent = `For: ${name}`;
 
-		const pDatetime = document.createElement("p");
-		pDatetime.textContent = `Test Ride On: ${datetime}`;
+    const pEmail = document.createElement("p");
+    pEmail.textContent = `Contact: ${email}`;
 
-		const article = document.createElement("article");
+    const pDatetime = document.createElement("p");
+    pDatetime.textContent = `Test Ride On: ${datetime}`;
 
-		article.appendChild(pColor);
-		article.appendChild(pModel);
-		article.appendChild(pName);
-		article.appendChild(pEmail);
-		article.appendChild(pDatetime);
+    const article = document.createElement("article");
 
-		return article;
-	}
-	function onEdit(e) {
-		const li = e.currentTarget.parentElement;
+    article.appendChild(pColor);
+    article.appendChild(pModel);
+    article.appendChild(pName);
+    article.appendChild(pEmail);
+    article.appendChild(pDatetime);
 
-		const pList = li.querySelectorAll("p");
+    return article;
+  }
+  function onEdit(e) {
+    const li = e.currentTarget.parentElement;
 
-		const [color, model, name, datetime, email] = Array.from(pList).map((el) => {
-			const [key, value] = el.textContent.split(": ");
-			return value;
-		});
-		colorInput.value = color;
-		modelInput.value = model;
-		dateTimeInput.value = datetime;
-		nameInput.value = name;
-		emailInput.value = email;
+    const pList = li.querySelectorAll("p");
 
-		addButton.removeAttribute("disabled");
-		li.remove();
-	}
+    const [color, model, name, datetime, email] = Array.from(pList).map((el) => {
+      const [key, value] = el.textContent.split(": ");
+      return value;
+    });
+    colorInput.value = color;
+    modelInput.value = model;
+    dateTimeInput.value = datetime;
+    nameInput.value = name;
+    emailInput.value = email;
 
-	function onNext(e) {
-		completeList.appendChild(previewList);
+    addButton.removeAttribute("disabled");
+    li.remove();
+  }
 
-		li.remove();
-	}
+  function onNext(e) {
+    completeList.appendChild(previewList);
+
+    li.remove();
+  }
 }
